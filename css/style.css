@@ -1,7 +1,7 @@
+/* Global styles */
 *,
 *:after,
 *:before {
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -33,9 +33,8 @@ a:focus {
 }
 
 
-/* Canvas container */
-
-.container {
+/* Map container */
+.map-container {
 	position: fixed;
 	z-index: -1;
 	top: 0;
@@ -44,7 +43,6 @@ a:focus {
 
 
 /* Header */
-
 header {
 	position: relative;
 	z-index: 1000;
@@ -128,7 +126,7 @@ header::before {
 	-webkit-align-items: center;
 	align-items: center;
 	height: 150vh;
-	margin: 0 0 3em;
+	margin: 0;
 	padding: 3em;
 	text-align: center;
 	color: #fff;
@@ -159,25 +157,39 @@ header::before {
 
 /* Story */
 
-.text {
+.story {
 	position: relative;
 	z-index: 1000;
-	padding: 5em 3em;
+	padding: 8em 3em;
+	width: 50%;
+	max-width: 700px;
+	background: #fff;
 }
 
-.text section {
+.story:after {
+	display: inline-block;
+	content: "";
+	position: absolute;
+	right: -120px;
+	top: 0;
+	width: 120px;
+	height: 100%;
+	background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 80%);
+}
+
+.story section {
 	font-size: 1.25em;
 	line-height: 1.7;
 }
 
-.text section h2 {
+.story section h2 {
 	font-size: 2.7em;
 	font-weight: 400;
 	margin: 0;
 	text-align: left;
 }
 
-.text section:not(:first-child) h2 {
+.story section:not(:first-child) h2 {
 	padding: 2em 0 0 0;
 }
 
@@ -200,15 +212,15 @@ header::before {
 	color: #5f646c;
 }
 
-.text figure {
+.story figure {
 	margin: 1em 0 2em;
 }
 
-.text figure img {
+.story figure img {
 	max-width: 100%;
 }
 
-.text figcaption {
+.story figcaption {
 	font-size: 0.85em;
 	font-style: italic;
 	padding: 1em 1.5em 0;
@@ -216,12 +228,12 @@ header::before {
 	color: #5f646c;
 }
 
-.text section p {
+.story section p {
 	font-size: 0.95em;
 	margin: 0.5em 0 1.5em;
 }
 
-.text section p.text-intro {
+.story section p.story-intro {
 	font-size: 1.3em;
 	font-style: italic;
 	line-height: 1.5;
@@ -230,7 +242,7 @@ header::before {
 	color: #9d9c95;
 }
 
-.text blockquote {
+.story blockquote {
 	font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
 	font-size: 2em;
 	line-height: 1.5;
@@ -239,7 +251,7 @@ header::before {
 	color: #939997;
 }
 
-.text blockquote::before {
+.story blockquote::before {
 	content: '\201C';
 	font-size: 2.5em;
 	font-style: italic;
@@ -251,29 +263,19 @@ header::before {
 	color: #f0f3f3;
 }
 
-.text blockquote span {
+.story blockquote span {
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 0.5em;
 	white-space: nowrap;
 	color: #cbcece;
 }
 
-.js-section {
-	width: 50%;
-	max-width: 700px;
-}
-
-.js-gallery {
-	padding-top: 50px;
-	padding-bottom: 50px;
-}
-
-.js-gallery-content {
+.step-gallery {
 	font-size: 0;
 	text-align: center;
 }
 
-.js-gallery-content img {
+.step-gallery img {
 	max-width: 100%;
 	margin: 10px 0;
 }
@@ -287,18 +289,18 @@ header::before {
 		height: auto;
 		padding: 1em;
 	}
-	.text {
+	.story {
 		font-size: 0.85em;
 		padding: 2em;
 		text-align: justify;
 	}
-	.text section h2 {
+	.story section h2 {
 		font-size: 1.85em;
 	}
-	.text blockquote {
+	.story blockquote {
 		font-size: 1.45em;
 	}
-	.js-section {
+	.step-section {
 		width: 100%;
 		max-width: none;
 	}
