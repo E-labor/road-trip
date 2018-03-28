@@ -37,7 +37,7 @@ a:focus {
 .map-container {
 	position: fixed;
 	z-index: -1;
-	top: 0;
+	top: 25px;
 	left: 0;
 }
 
