@@ -1,12 +1,3 @@
-// 1400 0 600 500
-// 1300 50 600 600
-// 1100 150 400 500
-// 1000 200 400 900
-// 900 200 300 900
-// 900 250 400 400
-// 700 150 400 500
-// 550 200 400 700
-
 // function loadSvg(selector, url) {
 //   	var target = document.querySelector(selector);
 // 	// Request the SVG file
@@ -36,35 +27,38 @@ roads.forEach((road) => {
 // hide cities name except first
 var cities = document.querySelectorAll('#cities-name text');
 cities.forEach((city, index) => {
-	if (index > 0) { 
-		// city.style.fillOpacity = 0; 
-		TweenMax.to(city, .3, {autoAlpha: 0, display: 'none'});
+	if (index > 0) {  
+		TweenMax.to(city, .3, {autoAlpha: 0, y:-40});
 	}
 });
-
-// function to draw roads path
-function drawPath(step, duration) {
-	return TweenMax.to('#roads #'+ step, duration, {strokeDashoffset: 0, ease:Linear.easeNone});
-}
 
 // function to animate path & the map viewbox(pan & zoom) 
 function mapAnimate() {
 	this.controller = new ScrollMagic.Controller();
 	this.scenes = [];
 	this.setAnimation = function(element, duration, timelines) {
+		var circles = document.querySelectorAll('#steps circle');
+			circles[0].style.stroke = '#74D7B6';
         let el = document.querySelector('.'+ element),
         	map = document.getElementById("map-svg"),
-        	city = cities[Number(element.slice(4))-1],
-        	tweenPath = drawPath(element, duration),
-        	showCity = (city) => { TweenMax.to(city, .3, {autoAlpha: 1, display: 'block', ease:Power4.easeInOut}); };
+        	city = cities[Number(element.slice(4))],
+        	circle = circles[Number(element.slice(4))],
+        	drawPath = (step, duration) => { return TweenMax.to('#roads #'+ step, duration, {strokeDashoffset: 0, ease:Linear.easeNone}); },
+        	showCity = (city) => { return TweenMax.to(city, .3, {autoAlpha: 1, y:0, ease:Power4.easeInOut}); };
 
-        // set animation timeline 
-        let tl = new TimelineMax({onUpadte:tweenPath});
+        // set step circle animation timeline
+        let ctl = new TimelineMax();
+        ctl.to(circle, .2, {scale:2, strokeWidth:2, stroke:'#74D7B6', ease:Power2.easeIn}) 
+        ctl.to(circle, .2, {scale:1, strokeWidth:1, ease:Power2.easeIn});
+
+        // set animation main timeline 
+        let tl = new TimelineMax({onUpadte:drawPath, onUpadteParams:[element, duration]});
 		timelines.forEach((item, i) => {
 		    tl.to(map, parseFloat(item.duration), {attr:{ viewBox:item.viewBox}, ease:Power2.easeInOut}, item.position);
 		});
-		tl.add(tweenPath,.3)
-		tl.add(TweenMax.to(city, .3, {autoAlpha: 1, display: 'block', ease:Power4.easeInOut}));
+		tl.add(drawPath(element, duration), .3)
+		tl.add(ctl)
+		tl.add(showCity(city), "-=0.3");
 
 		// set animation scene
         let scene = new ScrollMagic.Scene({
@@ -86,7 +80,7 @@ function mapAnimate() {
 
 // init map animations
 var mapAnimate = new mapAnimate();
-var initMap = function() {
+var initMap = () => {
 	// loadSvg('.map-container', 'img/map.svg');
 	// loop over all steps sections
 	var steps = document.querySelectorAll('.step-section');
