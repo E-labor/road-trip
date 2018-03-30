@@ -24,7 +24,7 @@ roads.forEach((road) => {
   pathPrepare(road);
 });
 
-// hide cities name except first
+// hide cities name except first one
 var cities = document.querySelectorAll('#cities-name text');
 cities.forEach((city, index) => {
 	if (index > 0) {  
@@ -38,7 +38,7 @@ function mapAnimate() {
 	this.scenes = [];
 	this.setAnimation = function(element, duration, timelines) {
 		var circles = document.querySelectorAll('#steps circle');
-			circles[0].style.stroke = '#74D7B6';
+			circles[0].style.stroke = '#74D7B6'; // set firts step circle with right style
         let el = document.querySelector('.'+ element),
         	map = document.getElementById("map-svg"),
         	city = cities[Number(element.slice(4))],
@@ -54,21 +54,22 @@ function mapAnimate() {
         // set animation main timeline 
         let tl = new TimelineMax({onUpadte:drawPath, onUpadteParams:[element, duration]});
 		timelines.forEach((item, i) => {
+			// use timelines data from data-timeline attributes to build viewbox animation
 		    tl.to(map, parseFloat(item.duration), {attr:{ viewBox:item.viewBox}, ease:Power2.easeInOut}, item.position);
 		});
-		tl.add(drawPath(element, duration), .3)
-		tl.add(ctl)
-		tl.add(showCity(city), "-=0.3");
+		tl.add(drawPath(element, duration), .3) // draw road
+		tl.add(ctl) // animation step circle
+		tl.add(showCity(city), "-=0.3"); // finally show city name
 
-		// set animation scene
+		// set ScrollMagic's scene with animations
         let scene = new ScrollMagic.Scene({
         	duration: el.offsetHeight,
 	        triggerElement: '.'+ element,
 	        triggerHook: "onLeave"
         });
         scene.setTween(tl)
-        scene.addTo(this.controller)
-        scene.addIndicators();
+        scene.addTo(this.controller);
+        // scene.addIndicators();
 
         this.scenes.push(scene);
 
@@ -85,6 +86,7 @@ var initMap = () => {
 	// loop over all steps sections
 	var steps = document.querySelectorAll('.step-section');
 	steps.forEach((step) => {
+		// get data attributes as params for animations
 		let stepsData = step.dataset, timelines = [], duration;
 	  	Object.keys(stepsData).map(function(key, index) {
 	  		if (key.search('timeline') > -1) {
@@ -93,8 +95,11 @@ var initMap = () => {
 	  			duration = parseFloat(stepsData[key]);
 	  		}
 		});
-		mapAnimate.setAnimation(step.classList[1], duration, timelines);
+		// set scenes with animations for each step
+		if(step.classList[1]) {
+			mapAnimate.setAnimation(step.classList[1], duration, timelines);
+		}
 	});
 };
-//launch map animations
+//launch map script
 initMap();
