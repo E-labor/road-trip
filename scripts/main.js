@@ -38,7 +38,7 @@ function mapAnimate() {
 	this.scenes = [];
 	this.setAnimation = function(element, duration, timelines) {
 		var circles = document.querySelectorAll('#steps circle');
-			circles[0].style.stroke = '#74D7B6'; // set firts step circle with right style
+			circles[0].style.stroke = '#FCF375'; // set firts step circle with right style
         let el = document.querySelector('.'+ element),
         	map = document.getElementById("map-svg"),
         	city = cities[Number(element.slice(4))],
@@ -48,7 +48,7 @@ function mapAnimate() {
 
         // set step circle animation timeline
         let ctl = new TimelineMax();
-        ctl.to(circle, .2, {scale:2, strokeWidth:2, stroke:'#74D7B6', ease:Power2.easeIn}) 
+        ctl.to(circle, .2, {scale:2, strokeWidth:2, stroke:'#FCF375', ease:Power2.easeIn}) 
         ctl.to(circle, .2, {scale:1, strokeWidth:1, ease:Power2.easeIn});
 
         // set animation main timeline 
