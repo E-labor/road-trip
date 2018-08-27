@@ -212,22 +212,6 @@ header::before {
 	color: #5f646c;
 }
 
-.story figure {
-	margin: 1em 0 2em;
-}
-
-.story figure img {
-	max-width: 100%;
-}
-
-.story figcaption {
-	font-size: 0.85em;
-	font-style: italic;
-	padding: 1em 1.5em 0;
-	text-align: center;
-	color: #5f646c;
-}
-
 .story section p {
 	font-size: 0.95em;
 	margin: 0.5em 0 1.5em;
@@ -270,14 +254,22 @@ header::before {
 	color: #cbcece;
 }
 
-.step-gallery {
-	font-size: 0;
-	text-align: center;
+.story section p.step-image {
+	margin: 1em 0 0;
 }
 
-.step-gallery img {
+.story section p.step-image img {
 	max-width: 100%;
-	margin: 10px 0;
+	cursor: url("../img/plus_cursor.png") 25 25, pointer;
+}
+
+.caption {
+	font-size: 0.85em;
+	padding: 0 1.5em;
+	margin: 0 0 2em;
+	text-align: center;
+	color: #5f646c;
+	display: block;
 }
 
 @media(max-width: 720px) {
