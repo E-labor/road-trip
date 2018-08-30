@@ -112,6 +112,7 @@ header::before {
 	color: #d1d2d2;
 }
 
+/* Intro quote */
 .intro {
 	font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
 	font-size: 2em;
@@ -148,13 +149,6 @@ header::before {
 	color: #464b4b;
 }
 
-
-/* Content */
-
-.content {
-	padding: 3em 0;
-}
-
 /* Story */
 
 .story {
@@ -164,29 +158,20 @@ header::before {
 	width: 50%;
 	max-width: 700px;
 	background: #fff;
+	box-shadow: 5px 0 5px 2px rgba(0,0,0,.2);
 }
 
-.story:after {
-	display: inline-block;
-	content: "";
-	position: absolute;
-	right: -120px;
-	top: 0;
-	width: 120px;
-	height: 100%;
-	background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 80%);
-}
-
-.story section {
+.step-content {
 	font-size: 1.25em;
 	line-height: 1.7;
 }
 
-.story section h2 {
+.step-content h2 {
 	font-size: 2.7em;
 	font-weight: 400;
 	margin: 0;
 	text-align: left;
+	background: #fff;
 }
 
 .story section:not(:first-child) h2 {
@@ -212,12 +197,13 @@ header::before {
 	color: #5f646c;
 }
 
-.story section p {
+.step-content p {
 	font-size: 0.95em;
 	margin: 0.5em 0 1.5em;
+	background: #fff;
 }
 
-.story section p.story-intro {
+.step-content p.story-intro {
 	font-size: 1.3em;
 	font-style: italic;
 	line-height: 1.5;
@@ -226,7 +212,7 @@ header::before {
 	color: #9d9c95;
 }
 
-.story blockquote {
+.step-content blockquote {
 	font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
 	font-size: 2em;
 	line-height: 1.5;
@@ -235,7 +221,7 @@ header::before {
 	color: #939997;
 }
 
-.story blockquote::before {
+.step-content blockquote::before {
 	content: '\201C';
 	font-size: 2.5em;
 	font-style: italic;
@@ -247,18 +233,19 @@ header::before {
 	color: #f0f3f3;
 }
 
-.story blockquote span {
+.step-content blockquote span {
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 0.5em;
 	white-space: nowrap;
 	color: #cbcece;
 }
 
-.story section p.step-image {
+.step-content p.step-image {
 	margin: 1em 0 0;
+	background: #fff;
 }
 
-.story section p.step-image img {
+.step-content p.step-image img {
 	max-width: 100%;
 	cursor: url("../img/plus_cursor.png") 25 25, pointer;
 }
@@ -270,30 +257,98 @@ header::before {
 	text-align: center;
 	color: #5f646c;
 	display: block;
+	background: #fff;
 }
 
-@media(max-width: 720px) {
+.step-blank {
+	display: none;
+}
+
+@media all and (max-width: 1199px) {
+	#map-svg {
+		width: 170vw;
+		height: 100vh;
+	}
+
+	.intro {
+		height: 100vh;
+	}
+
+	.story {
+		position: relative;
+		z-index: 1000;
+		padding: 0;
+		width: 100%;
+		min-width: 100%;
+		background: transparent;
+		font-size: 0.85em;
+		text-align: justify;
+		box-shadow: none;
+	}
+
+	.story section {
+		position: relative;
+		width: 100%;
+		max-width: none;
+	}
+	
+	.step-content {
+		background: #fff;
+		padding: 2em;
+	}
+
+	.story section:first-child .step-content {
+		padding-top: 2em;
+	}
+
+	.step-blank {
+		background: transparent;
+		height: 75em;
+		display: block;
+	}
+
+	.story section:last-child .step-blank {
+		display: none;
+	}
+
+	.step-content h2 {
+		font-size: 1.85em;
+	}
+
+	.story section:not(:first-child) h2 {
+		padding: .5em 0 0 0;
+	}
+	.step-content blockquote {
+		font-size: 1.45em;
+	}
+}
+
+@media all and (max-width: 991px) {
+	header {
+		min-height: 100vh;
+		padding: 0;
+	}
+
 	.header-title {
 		font-size: 1.5em;
 	}
+
 	.intro {
 		font-size: 1.25em;
-		height: auto;
 		padding: 1em;
 	}
-	.story {
-		font-size: 0.85em;
-		padding: 2em;
-		text-align: justify;
+
+	.step-content {
+		padding: 0.5em;
 	}
-	.story section h2 {
-		font-size: 1.85em;
+
+	.step-blank {
+		height: 40em;
 	}
-	.story blockquote {
-		font-size: 1.45em;
-	}
-	.step-section {
-		width: 100%;
-		max-width: none;
+}
+
+@media all and (max-width: 991px) and (orientation: landscape) {
+	.step-content {
+		padding: 1em;
 	}
 }
