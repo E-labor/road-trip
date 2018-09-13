@@ -73,7 +73,6 @@ function mapAnimate() {
 // init map animations
 var mapAnimate = new mapAnimate();
 var initMap = () => {
-	// loadSvg('.map-container', 'img/map.svg');
 	// loop over all steps sections
 	var steps = document.querySelectorAll('.step-section');
 	steps.forEach((step) => {
